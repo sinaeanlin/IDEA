@@ -131,6 +131,5 @@ public class CompanyServiceImpl implements CompanyService{
                 e.printStackTrace();
             }
         }
-        return null;
     }
 }

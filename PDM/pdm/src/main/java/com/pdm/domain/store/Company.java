@@ -14,6 +14,7 @@ public class Company {
     private String industry;
     private String remarks;
     private Integer state;
+    private String city;
 
     public String getId() {
         return id;
@@ -111,6 +112,5 @@ public class Company {
         this.city = city;
     }
 
-    private String city;
 
 }
