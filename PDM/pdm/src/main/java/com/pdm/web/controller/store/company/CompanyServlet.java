@@ -26,6 +26,12 @@ public class CompanyServlet extends HttpServlet {
             this.toAdd(request,response);
         }else if("save".equals(operation)){
             this.save(request,response);
+        }else if("delete".equals(operation)){
+            this.delete(request,response);
+        }else if("toEdit".equals(operation)){
+            this.toEdit(request, response);
+        }else if("edit".equals(operation)){
+
         }
 //        if("list".equals(operation)){
 //            CompanyService companyService = new CompanyServiceImpl();
@@ -64,6 +70,25 @@ public class CompanyServlet extends HttpServlet {
         Company company = BeanUtil.fillBean(request,Company.class,"yyyy-MM-dd");
         companyService.save(company);
         //重定向
+        response.sendRedirect(request.getContextPath()+"/WEB-INF/pages/store/company/list.jsp");
+    }
+    private void delete(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        CompanyService companyService = new CompanyServiceImpl();
+        Company company = BeanUtil.fillBean(request, Company.class);
+        companyService.delete(company);
+        response.sendRedirect(request.getContextPath()+"/WEB-INF/pages/store/company/list.jsp");
+    }
+    private void toEdit(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        CompanyService companyService = new CompanyServiceImpl();
+        Company company = companyService.findById(id);
+        request.setAttribute("Company",company);
+        request.getRequestDispatcher("/WEB-INF/pages/store/company/list.jsp").forward(request,response);
+    }
+    private void edit(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        CompanyService companyService = new CompanyServiceImpl();
+        Company company = BeanUtil.fillBean(request, Company.class, "yyyy-MM-dd");
+        companyService.save(company);
         response.sendRedirect(request.getContextPath()+"/WEB-INF/pages/store/company/list.jsp");
     }
 }
